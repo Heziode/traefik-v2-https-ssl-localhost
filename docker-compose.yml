@@ -1,0 +1,52 @@
+version: '3'
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+
+services:
+  reverse-proxy:
+    image: traefik:v2.0
+    container_name: reverse-proxy
+    # Enable the web interface and asks Traefik to listen to Docker
+    command: 
+      - --api.insecure=true
+      - --providers.docker
+    ports:
+      - "80:80"
+      - "443:443"
+      # Web interface port (enabled by --api.insecure=true)
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Map the static conf into the container
+      - ./traefik/traefik.toml:/etc/traefik/traefik.toml:ro
+      # Map the dynamic conf into the container
+      - ./traefik/traefik.config.toml:/etc/traefik/traefik.config.toml:ro
+      # Map the certificats into the container
+      - ./certs:/etc/certs:ro
+    networks:
+      - backend
+      - frontend
+    labels:
+      - "traefik.frontend.redirect.entryPoint=https"
+
+  whoami:
+    image: containous/whoami
+    container_name: whoami
+    labels:
+      # URL HTTP
+      - traefik.http.routers.whoami.rule=Host(`whoami.domain.local`)
+      # HTTP entrypoint
+      - traefik.http.routers.whoami.entrypoints=http
+      # Use of middleware to redirect HTTP to HTTPS
+      - traefik.http.routers.whoami.middlewares=redirect@file
+      # URL HTTPS
+      - traefik.http.routers.whoamis.rule=Host(`whoami.domain.local`)
+      # HTTPS entrypoint
+      - traefik.http.routers.whoamis.entrypoints=https
+      # Activation of TLS
+      - traefik.http.routers.whoamis.tls=true
+    networks:
+      - frontend

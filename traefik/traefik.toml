@@ -1,0 +1,25 @@
+[global]
+  sendAnonymousUsage = false
+
+[log]
+  level = "INFO" #DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+  format = "common"
+
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+
+  [entryPoints.https]
+    address = ":443"
+
+[providers]
+  [providers.file]
+    filename = "/etc/traefik/traefik.config.toml"
+    watch = true
+
+[providers.docker]
+  endpoint = "unix:///var/run/docker.sock"
+  watch = true
+  [docker.tls]
+    cert = "/etc/certs/local-cert.pem"
+    key = "/etc/certs/local-key.pem"
