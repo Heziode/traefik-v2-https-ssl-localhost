@@ -20,8 +20,7 @@ services:
       # Map the certificats into the container
       - ./certs:/etc/certs:ro
     networks:
-      - frontend
-      - backend
+      - proxy
     labels:
       # Enable this container to be mapped by traefik
       # For more information, see: https://docs.traefik.io/providers/docker/#exposedbydefault
@@ -30,9 +29,5 @@ services:
       - "traefik.http.routers.traefik=true"
 
 networks:
-  frontend:
-    external:
-      name: frontend
-  backend:
-    external:
-      name: backend
+  proxy:
+    external: true

@@ -17,12 +17,8 @@ services:
       # If port is different than 80, use the following service:
       # - "traefik.http.services.<service_name>.loadbalancer.server.port=<port>"
     networks:
-      - frontend
+      - proxy
 
 networks:
-  frontend:
-    external:
-      name: frontend
-  backend:
-    external:
-      name: backend
+  proxy:
+    external: true
