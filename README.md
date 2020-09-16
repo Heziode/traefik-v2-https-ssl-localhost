@@ -23,18 +23,30 @@ mkcert -cert-file certs/local-cert.pem -key-file certs/local-key.pem "docker.loc
 ```
 
 
+Create networks that will be used by Traefik:
+
+```bash
+docker network create frontend
+docker network create backend
+``` 
+
 
 Now, start containers with : 
 
 ```bash
-docker-compose -f docker-compose.yml up
+# Start Traefik
+docker-compose -f docker-compose.yml up -d
+# Start "whoami" example
+docker-compose -f whoami.yml up
 ```
 
 
 
-You can now go to your browser at [whoami.domain.local](https://whoami.domain.local), enjoy :rocket: !
+You can now go to your browser at [whoami.docker.localhost](https://whoami.docker.localhost), enjoy :rocket: !
 
+*Note: you can access to Træfik dashboard at: [traefik.docker.localhost](https://traefik.docker.localhost)*
 
+Don't forget that you can also map TCP and UDP through Træfik.
 
 ## Code of Conduct
 
