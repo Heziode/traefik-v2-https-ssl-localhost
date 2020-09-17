@@ -26,8 +26,7 @@ mkcert -cert-file certs/local-cert.pem -key-file certs/local-key.pem "docker.loc
 Create networks that will be used by Traefik:
 
 ```bash
-docker network create frontend
-docker network create backend
+docker network create proxy
 ``` 
 
 
