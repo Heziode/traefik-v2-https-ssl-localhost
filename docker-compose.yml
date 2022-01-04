@@ -2,7 +2,7 @@ version: '3'
 
 services:
   reverse-proxy:
-    image: traefik:v2.3
+    image: traefik:v2.5
     container_name: traefik
     restart: unless-stopped
     security_opt:
