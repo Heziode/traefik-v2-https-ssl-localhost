@@ -12,7 +12,7 @@ providers:
     exposedByDefault: false
 
   file:
-    filename: /etc/traefik/config.yml
+    filename: /etc/traefik/dynamic.yml
     watch: true
 
 log:

@@ -13,10 +13,10 @@ services:
       - 443:443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      # Map the static conf into the container
-      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
-      # Map the dynamic conf into the container
-      - ./traefik/config.yml:/etc/traefik/config.yml:ro
+      # Map the static configuration into the container
+      - ./config/static.yml:/etc/traefik/traefik.yml:ro
+      # Map the dynamic configuration into the container
+      - ./config/dynamic.yml:/etc/traefik/dynamic.yml:ro
       # Map the certificats into the container
       - ./certs:/etc/certs:ro
     networks:
