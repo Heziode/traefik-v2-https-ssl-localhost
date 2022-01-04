@@ -25,8 +25,6 @@ services:
       # Enable this container to be mapped by traefik
       # For more information, see: https://docs.traefik.io/providers/docker/#exposedbydefault
       - "traefik.enable=true"
-      # Use "traefik" router configuration defined into the dynamic config file: ./traefik/config.yml
-      - "traefik.http.routers.traefik=true"
 
 networks:
   proxy:
