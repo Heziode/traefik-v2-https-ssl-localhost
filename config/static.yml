@@ -7,6 +7,7 @@ api:
 
 providers:
   docker:
+    network: proxy
     endpoint: "unix:///var/run/docker.sock"
     watch: true
     exposedByDefault: false
