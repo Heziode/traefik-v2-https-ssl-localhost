@@ -10,6 +10,8 @@ services:
       # Enable this container to be mapped by traefik
       # For more information, see: https://docs.traefik.io/providers/docker/#exposedbydefault
       - "traefik.enable=true"
+      # Define the network that should be used
+      - "traefik.docker.network=proxy"
       # URL to reach this container
       - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
       # Activation of TLS
